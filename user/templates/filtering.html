@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+filtering page
+
+{% endblock %}
+
+
+{% block content %}
+<style>
+    body {
+        background-color: azure;
+    }
+
+    .card-wrapper {
+        background-color: rgba(2, 0, 0, 0.555);
+        width: 80vw;
+        border-radius: 10px;
+    }
+
+    span {
+        margin-right: 10px;
+        font-size: 25px;
+    }
+</style>
+
+<body>
+    <h1 class="center">filtering Page</h1>
+    <div>
+        <form name="filter-form" class="card-wrapper">
+            <!-- checkbox -->
+            <div class="card" style="width:30vh;">
+                <label for="filterby">
+                    filter by:
+                </label>
+                <div class="checkbox">
+                    <label><input onclick="showMe('forlike','likeInput','#chk1') " id="chk1" type="checkbox"
+                            value="likes" name="checkbox" title="checkbox"> likes</label>
+                </div>
+                <div class="checkbox">
+                    <label><input onclick="showMe('forreply','replyInput','#chk2')" id="chk2" type="checkbox"
+                            value="replies" name="checkbox" title="checkbox"> replies</label>
+                </div>
+                <div class="checkbox">
+                    <label><input onclick="showMe('forretweet','retweetInput','#chk3')" id="chk3" type="checkbox"
+                            value="retweets" name="checkbox" title="checkbox"> retweets</label>
+                </div>
+                <p class="error error--hidden"></p>
+            </div>
+            <!-- list -->
+            <div class="card" style="width:30vh;display: none;" id="forlike">
+                <label for="forLikes">
+                    for likes:
+                </label>
+                <select id="forLikes" name="likeElements">
+                    <option value="$gt" name="option1" selected>greater than</option>
+                    <option value="$lt" name="option2">less than</option>
+                    <option value="$eq" name="option3">equal to</option>
+                </select>
+                <p class="error error--hidden"></p>
+            </div>
+
+
+            <div class="card" style="width:30vh;display: none;" id="forreply">
+                <label for="forReplies">
+                    for replies:
+                </label>
+                <select id="forReplies" name="replyElements">
+                    <option value="$gt" selected>greater than</option>
+                    <option value="$lt">less than</option>
+                    <option value="$eq">equal to</option>
+                </select>
+                <p class="error error--hidden"></p>
+            </div>
+
+
+            <div class="card" style="width:30vh;display: none;" id="forretweet">
+                <label for="forRetweets">
+                    for retweets:
+                </label>
+                <select id="forRetweets" name="retweetElements">
+                    <option value="$gt" selected>greater than</option>
+                    <option value="$lt">less than</option>
+                    <option value="$eq">equal to</option>
+                </select>
+                <p class="error error--hidden"></p>
+            </div>
+
+
+            <!-- numbers -->
+            <div>
+                <div class="card d-none" style="width:15vw; display:none;" id="likeInput">
+                    <label for="likes">Enter likes number:</label>
+                    <input type="number" name="forlike" id="likes" value="0" style="width:10vw;">
+                </div>
+                <div class="card d-none" style="width:15vw;display: none;" id="replyInput">
+                    <label for="replies">Enter replies number:</label>
+                    <input type="number" name="forreply" id="replies" value="0" style="width:10vw;">
+                </div>
+                <div class="card d-none" style="width:15vw;display: none;" id="retweetInput">
+                    <label for="retweet">Enter retweets number:</label>
+                    <input type="number" name="forretweets" id="retweet" value="0" style="width:10vw;">
+                </div>
+            </div>
+            <br>
+            <input type="submit" name="submit_button" value="submit_value" class="submit btn btn-danger col-10 btn-block">
+        </form>
+    </div>
+
+    <div class="card-wrapper">
+        {% for tweet in filtered %}
+        <div class="card">
+            <h3 class="center">tweet {{ tweet['_id'] }}</h3>
+            <p>
+                <strong>Content</strong>{{ tweet['content'] }} <br>
+                <strong>Likes</strong>{{ tweet['likes'] }} <br>
+                <strong>Replies</strong>{{ tweet['replies'] }}
+                <strong>retweets</strong>{{ tweet['retweet'] }}
+            </p>
+        </div>
+        {% endfor %}
+    </div>
+
+
+    <!-- <div class="card-wrapper">
+        <div class="card d-block">
+            <h2>Session Info</h2>
+            {{ session['open'] }}
+            {{ session['filterby'] }}
+
+        </div>
+        {% for tweets in session['final'] %}
+        <div class="card">
+            <h6 class="center">ID:{{ tweets['_id'] }}</h6>
+            <p><strong>content:</strong>{{ tweets['content'] }}</p>
+            <p style="margin-right: 10px;">
+                <span><strong>likes:{{ tweets['likes'] }}</strong></span>
+                <span><strong>replies:{{ tweets['replies'] }}</strong></span>
+                <span><strong>retweets:{{ tweets['retweet'] }}</strong></span>
+            </p>
+        </div>
+        {% endfor %} -->
+    </div>
+</body>
+{% endblock %}

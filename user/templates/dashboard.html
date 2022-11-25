@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Dashboard Page
+{% endblock %}
+
+{% block content %}
+    <body>
+        <h1 class="center">You are currently logged in</h1>
+        <div class="card-wrapper" >
+            <div class="card scnd">
+                <h2 class=" ">
+                    Your Info
+                </h2>
+                <p>
+                    <strong>Id:</strong>{{ session['user']['_id'] }} <br>
+                    <strong>Name:</strong>{{ session['user']['name'] }} <br>
+                    <strong>Email:</strong>{{ session['user']['email'] }}
+                </p>
+            </div>
+        </div>
+    </body>
+{% endblock %}

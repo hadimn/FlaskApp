@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Scrape Tweets
+{% endblock %}
+
+{% block content %}
+    <h1 class="center">my scraper</h1>
+    <div class="card-wrapper">
+        <div class="card">
+            <h3 class="center">choose number of tweets to scrape</h3>
+            <form name="scrape-form">
+                <label for="number">Enter number of tweets to scrape:</label>
+                <input type="text" name="number" class="field" required>
+                <label for="title">Enter title of tweets to scrape:<br>(title must start with #) <br>
+                <strong class="alert alert-warning" role="alert" style="top: 10px;">You can enter more than one title</strong></label>
+
+                <input type="text" name="title" class="field" required>
+
+                <p class="error error--hidden"></p>
+                <input type="submit" value="scrape" class="btn" href="">
+            </form>
+        </div>
+    </div>
+{% endblock %}

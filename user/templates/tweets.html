@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    tweets
+{% endblock %}
+
+
+{% block content %}
+    <h1 class="center">Tweets</h1>
+    <div class="center">
+        <button class="btn btn-outline-success center"> <a href="/tweets/filter" class="nav-link disabled">Filter Tweets</a> </button>
+    </div>
+    <div>
+        <h3 class="center"><strong>Tweets Count</strong>:{{ count }}</h3>
+        <h3 class="center"><strong>Tweets viewed</strong>:{{ count2 }}</h3>
+    </div>
+    <div class="card-wrapper">
+        {% for tweet in tweets %}
+        <div class="card">
+            <h3 class="center">tweet {{ tweet['_id'] }}</h3>
+            <p>
+                <strong>Content</strong>{{ tweet['content'] }} <br>
+                <strong>Likes</strong>{{ tweet['likes'] }} <br>
+                <strong>Replies</strong>{{ tweet['replies'] }}
+                <strong>retweets</strong>{{ tweet['retweet'] }}
+            </p>
+        </div>
+        {% endfor %}
+    </div>
+
+    
+{% endblock %}

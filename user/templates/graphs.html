@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}
+charts
+{% endblock %}
+
+{% block content %}
+
+<style>
+    #chartdiv {
+        width: 100%;
+        height: 650px;
+    }
+</style>
+
+<!-- view div -->
+<div id="chartdiv"></div>
+
+<!-- Resources -->
+<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/plugins/wordCloud.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+
+<script>
+
+    am4core.ready(function () {
+
+    var datas = {{ result | tojson }};
+    // Themes begin
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+
+    var chart = am4core.create("chartdiv", am4plugins_wordCloud.WordCloud);
+    chart.fontFamily = "cursive";
+    var series = chart.series.push(new am4plugins_wordCloud.WordCloudSeries());
+    // series.randomness = 0.6;
+    // series.accuracy = 4;
+    // series.step = 10;
+    series.rotationThreshold = 0.7;
+    series.maxCount = 200;
+    series.minWordLength = 2;
+    series.labels.template.margin(5, 5, 5, 5);
+    series.maxFontSize = am4core.percent(30);
+
+    series.data = datas;
+
+    series.dataFields.word = "_id";
+    series.dataFields.value = "count";
+
+    series.colors = new am4core.ColorSet();
+
+    series.angles = [0, -90];
+    series.fontWeight = "500";
+
+    // series.labels.template.url = "https://stackoverflow.com/questions/tagged/{word}";
+    // series.labels.template.urlTarget = "_blank";
+    series.labels.template.tooltipText = "{word}: {value}";
+
+    var hoverState = series.labels.template.states.create("hover");
+    hoverState.properties.fill = am4core.color("#FF0000");
+
+    var subtitle = chart.titles.create();
+    subtitle.text = "word cloud(click here)&(minimize and maximize the page to view the chart)";
+
+    var title = chart.titles.create();
+    title.text = "Most popular Twitter HashTags";
+    title.fontSize = 20;
+    title.fontWeight = "800";
+
+    }); // end am4core.ready()
+
+</script>
+
+
+
+{% endblock %}
